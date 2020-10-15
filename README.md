@@ -28,7 +28,7 @@ This set of simple scripts is for you.
 The following need to be checked and changed:
 Remember the IP list you made earlier? It will help you now.
 
-1. Input all IPs in the `[inventory.ini](./inventory.ini)` file in required positions (decide which machines would be your master node, data node, etc and put them under corresponding blocks). For example if 1.1.1.1 is master, 1.2.2.1 is coordinating, 1.3.3.1 is data and 1.2.2.1 is kibana, my inventory.ini file will look like this:
+1. Input all IPs in the [inventory.ini](./inventory.ini) file in required positions (decide which machines would be your master node, data node, etc and put them under corresponding blocks). For example if 1.1.1.1 is master, 1.2.2.1 is coordinating, 1.3.3.1 is data and 1.2.2.1 is kibana, my inventory.ini file will look like this:
     ``` yaml
      [hosts]
       1.1.1.1
