@@ -12,7 +12,7 @@ This set of simple scripts is for you.
     ```
     [Must be installed on machine having connectivity to all other machines where one wants to install ES, Kibana, etc through SSH]
 2. You may need to keep the private key for ssh handy in case it is used to access Machines (eg: In the case of AWS).  Let us name the key `your_key.pem`
-3. Have IPs of all the systems handy and note down which systems will be your Master node, Data node and Coordinating Node. Also Nginx will be automatically installed onto your coordinating node system. If you do not want that remove `import-playbook nginx_main.yml and import-playbook nginx_install.yml` from the main.yml file.
+3. Have IPs of all the systems handy and note down which systems will be your Master node, Data node and Coordinating Node. Also Nginx will be automatically installed onto your coordinating node system. If you do not want that remove `import-playbook nginx_main.yml and import-playbook nginx_install.yml` from the [main.yml](./main.yml) file.
 4. This script uses pre-built ES roles. Run the following only after ansible has been installed:
     ``` sh
     $ ansible-galaxy install elastic.elasticsearch,7.9.1
@@ -97,3 +97,23 @@ Remember the IP list you made earlier? It will help you now.
           node.ml: false
           bootstrap.memory_lock: true
      ```
+3. Update [kibana.yml](./kibana.yml) to look like below by entering the coordinating node IP. 
+    ``` yaml
+        - hosts: kibana
+          become: true
+          roles:
+                  - role: fedelemantuano.kibana
+                    kibana_config:
+                            server.name: "{{ inventory_hostname }}"
+                            server.port: 5601
+                            server.host: "{{ ansible_default_ipv4.address }}"
+                            elasticsearch.hosts: "1.2.2.1"
+                    es_version: "7.9.1"
+     ```
+4. Next you need to make sure [disk.yaml](./disk.yml) is changed to match the disk names that is used by your machines. `nvme1n1` and `xdf` are most commonly used for AWS EC2 instances and have been included in the script. If yours is different, change the disk type.
+5. If nginx is being installed, it will be installed on the coordinating and kibana nodes.
+
+# Running the script:
+Just run the following from the machine connected to all other machines through ssh
+``` sh
+    $ ansible-playbook main.yml -i inventory.ini --user ec2-user --key-file your_key.pem
