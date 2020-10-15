@@ -1,0 +1,6 @@
+- hosts: kibana
+  become: true
+  tasks:
+          - name: Installing Kibana OSS 7.9.1
+            yum: name=https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.9.1-x86_64.rpm
+

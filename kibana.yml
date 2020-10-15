@@ -1,0 +1,10 @@
+- hosts: kibana
+  become: true
+  roles:
+          - role: fedelemantuano.kibana
+            kibana_config:
+                    server.name: "{{ inventory_hostname }}"
+                    server.port: 5601
+                    server.host: "{{ ansible_default_ipv4.address }}"
+                    elasticsearch.hosts: "IP OF COORDINATING NODE"
+            es_version: "7.9.1"

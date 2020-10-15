@@ -1,0 +1,14 @@
+- hosts: coordinating
+  become: true
+  gather_facts: false
+  tasks:
+          - name: Installing nginx for Coordinating
+            shell: "amazon-linux-extras install nginx1 -y"
+            ignore_errors: true
+- hosts: kibana
+  become: true
+  gather_facts: false
+  tasks:
+          - name: Installing nginx for kibana
+            shell: "amazon-linux-extras install nginx1 -y"
+            ignore_errors: true
