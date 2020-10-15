@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Installing ES, Kibana and Nginx with Ansible at Scale
 
 Imagine you have a huge cluster to install ES on. More so all of the machines have similar characteristics of RAM, Storage type etc and you want to set the data directory separate from the root directory?
@@ -117,3 +119,4 @@ Remember the IP list you made earlier? It will help you now.
 Just run the following from the machine connected to all other machines through ssh
 ``` sh
     $ ansible-playbook main.yml -i inventory.ini --user ec2-user --key-file your_key.pem
+```
