@@ -43,4 +43,57 @@ Remember the IP list you made earlier? It will help you now.
      [kibana]
       1.2.2.1
      ```
-2. 
+2. Continuing this example, the [elastic.yml](./elastic.yml) file must be modified as follows. 
+    ``` yaml
+    - hosts: masters
+      roles:
+       - role: elastic.elasticsearch
+      vars:
+       es_heap_size: "16g"
+       es_data_dirs:
+          - "/es-data/elasticsearch"
+       es_config:
+         cluster.name: "YOUR CLUSTER"
+         network.host: 0
+         cluster.initial_master_nodes: "1.1.1.1"
+         discovery.seed_hosts: "1.1.1.1"
+         http.port: 9200
+         node.data: true
+         node.master: true
+         node.ingest: true
+         node.ml: true
+         cluster.remote.connect: false
+         bootstrap.memory_lock: true
+    - hosts: data
+      roles:
+        - role: elastic.elasticsearch
+      vars:
+        es_data_dirs:
+          - "/es-data/elasticsearch"
+        es_heap_size: "16g"
+        es_config:
+          cluster.name: "YOUR CLUSTER"
+          network.host: 0
+          discovery.seed_hosts: "1.1.1.1"
+          http.port: 9200
+          node.data: true
+          node.master: false
+          node.ml: false
+          bootstrap.memory_lock: true
+          indices.recovery.max_bytes_per_sec: 100mb
+    - hosts: coordinating
+      roles:
+        - role: elastic.elasticsearch
+      vars:
+        es_heap_size: "16g"
+        es_config:
+          cluster.name: "YOUR CLUSTER"
+          network.host: 0
+          discovery.seed_hosts: "1.1.1.1"
+          http.port: 9200
+          node.data: false
+          node.master: false
+          node.ingest: false
+          node.ml: false
+          bootstrap.memory_lock: true
+     ```
