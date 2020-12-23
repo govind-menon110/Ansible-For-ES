@@ -17,7 +17,7 @@ This set of simple scripts is for you.
 3. Have IPs of all the systems handy and note down which systems will be your Master node, Data node and Coordinating Node. Also Nginx will be automatically installed onto your coordinating node system. If you do not want that remove `import-playbook nginx_main.yml and import-playbook nginx_install.yml` from the [main.yml](./main.yml) file.
 4. This script uses pre-built ES roles. Run the following only after ansible has been installed:
     ``` sh
-    $ ansible-galaxy install elastic.elasticsearch,7.9.1
+    $ ansible-galaxy install elastic.elasticsearch,v7.10.1
     ```
     ``` sh
     $ ansible-galaxy install fedelemantuano.kibana
