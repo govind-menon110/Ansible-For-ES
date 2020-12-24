@@ -10,7 +10,7 @@
           - name: Format
             filesystem:
                     fstype: xfs
-                    dev: /dev/nvme1n1
+                    dev: /dev/nvme1n1p1
             ignore_errors: true
           - name: Directory
             file:
